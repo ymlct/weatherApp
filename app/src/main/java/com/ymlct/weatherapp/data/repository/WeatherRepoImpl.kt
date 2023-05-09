@@ -79,12 +79,14 @@ class WeatherRepoImpl(
                         timestamp = System.currentTimeMillis()
                     )
 
+                    val probable = _weatherByCity.value.find {
+                        it.cityGeocode.latitude == weatherModel.cityGeocode.latitude &&
+                        it.cityGeocode.longitude == weatherModel.cityGeocode.longitude
+                    }
+
                     _weatherByCity.value = buildList {
-                        if (_weatherByCity.value.find {
-                            it.cityGeocode.latitude == weatherModel.cityGeocode.latitude &&
-                            it.cityGeocode.longitude == weatherModel.cityGeocode.longitude
-                            } == null) add(weatherModel)
-                        addAll(_weatherByCity.value)
+                        if (probable != null) addAll(_weatherByCity.value.filter { it != probable })
+                        add(weatherModel)
                     }
 
                     localDataSource.updateCityWeather(weatherModel.toEntity())
