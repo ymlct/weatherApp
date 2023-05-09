@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">WeatherApp</string>
+
+    <string name="temperature">Temperature</string>
+    <string name="feels_like">Feels like</string>
+    <string name="condition">Condition</string>
+    <string name="last_update">last update</string>
+
+</resources>
